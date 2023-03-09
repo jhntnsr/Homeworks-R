@@ -1,0 +1,90 @@
+### Family Apply  ###
+
+El familia de funciones apply es utilizada para ejecutar una funcion a cada elemento de una estructura de datos. Usualmente utilizadas para ejecutar funciones en matrices, dataframes, arrays y listas. Se utilizan para automatizar tareas complejas usando pocas lineas de codigo. La familia de funciones apply recibe datos como argumentos asi tambien recibe funciones.
+
+#lappy#------------
+
+Esta diseñado para aplicar funciones a todos los elementos de una lista. La l de su nombre hace refencia a una lista. lapply siempre devolvera como resultado una lista. En cada ocacion tendremos un objeto de tipo lista despues de aplicar una funcion, sin importar que funcion sea.
+
+la sintaxis de esta funcion es la siguiente lapply(x,FUN), en donde x:es una lista o vector, FUN:Funcion a ejecutar
+
+Para utilizar al funcion lapply, se debe pasar la lista o vector y especificar la funcion que se quiere aplicar a cada uno de los elementos.
+
+#Ejemplos
+
+```{r}
+#aplicando la funcion sum 
+a <- list (A= c(8,9,7,5),
+           B= data.frame(x=1:5, y=c(5,1,0,2,3))) # creacion de listas 
+a
+
+lapply(a,sum)
+
+```
+
+```{r}
+#La funcion sqrt ejecuta la raiz cuadrada de cada uno de los elementos en el vector
+b <- c(12,18,6) #Vector
+ 
+lapply(b,sqrt) 
+
+```
+
+```{r}
+#La siguiente funcion es para devolver una lista que contenga numeros pares de un vector elevados al cubo y los impares elevados a la cuarta potencia.Donde %% operador binario para obtener el residuo en una división.
+
+vec <-c(1:5) # Creacion de vector vec
+
+fun <- function(i) { 
+   if(i %% 2 == 0) {
+        i ^ 3
+   } else {
+        i ^ 4
+    }
+}
+
+lapply(vec, fun)
+```
+
+#sapply#------------
+
+Esta funcion esta vectorizada y permite iterar sobre una lista o vector sin la necesidad de usar el bucle for. La aplicacion de esta funcion a un vector o lista permite devolver un vector, una matriz o un array. La sintaxis es la siguiente
+
+sapply(X,   # Vector o lista
+       FUN, # Función a ser aplicada
+       ..., # Argumentos adicionales para ser pasados a FUN
+       simplify = TRUE,  # Si FALSE devuelve una lista. Si "array" devuelve un array si es posible
+       USE.NAMES = TRUE) # Si TRUE y si X es un vector de caracteres, usa los nombres de X
+       
+Para usar la función sapply en R, deberás especificar la lista o el vector que deseas iterar en el primer argumento y la función que quieres aplicar a cada elemento del vector en el segundo.       
+
+#Ejemplos:
+
+```{r}
+#Obtiene la raiz cuadrad de cada elemento del vector de enteros del 3 al 9
+sapply(3:9, sqrt) 
+```
+```{r}
+# Se desea calcular el cuadrado de los elementos de un vector del 1 al 10
+sapply(1:10, function(i) i ^ 2)
+```
+```{r}
+#En el siguiente ejemplo calcularemos el número de componentes de cada elemento de la lista con la función length
+Lista2 <- list(A = 6:15, B = 8:29, C = 10)
+
+sapply(Lista2, length)
+```
+#vapply#------------
+Devuelve un vector con la longitud que tiene cada una de las listas introducidas como parámetro
+
+#Ejemplos
+
+```{r}
+u <- list(A = 5, B = 1:9, C = 3:17)
+u
+```
+```{r}
+vapply(u, FUN = length, FUN.VALUE = 0L)
+```
+
+

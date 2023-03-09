@@ -1,0 +1,48 @@
+### Funciones en R ###
+
+# Que es una funcion?
+Una deficion basica en cuanto a que es una funcion, es un grupo de instrucciones en las que los inputs se convierten en outputs deseados. 
+
+# Partes que forman una funcion en R
+
+# Entras, Inputs o argumentos: 
+Es donde ingresamos las instrucciones necesarias para realizar las operaciones que necesitamos dentro de la funcion. Los argumentos pueden estar vacios, o tener valores default, si la funcion no se personaliza la funcion funcionara con los default values.
+Nota: Las funciones pueden tener o no argumentos de entrada.
+
+# Cuerpo:
+Es el conjunto de instrucciones que transforman los inputs en outputs basadas en las instrucciones. Si hay varias instrucciones en la misma estructura estas deben ir dentro de llaves {}.
+
+# Salidas u Outputs:
+Son los valores que regresan de las operaciones de la funcion. Las operaciones en las funciones tendran almenos un resultado. Si una funcion da varios tipos de resultados, lo usual es organizarlos en una lista que pueda manejar diferentes tipos de objetos. 
+
+# Ejemplo de Estructura:
+
+Ejemplo_nombre <- function(ejemplo1, ejemplo2, ...) {
+cuerpo
+cuerpo
+cuerpo
+cuerpo
+return(Resultado)
+}
+
+# Ejemplo de Funcion que recibe 2 numeros y entrega la suma de ambos
+
+```{r}
+
+suma <- function(x,y) {
+  result <- x+y
+  return(result)
+}
+suma(x=4, y=6) # ingreso de datos para ejecutar la funcion
+
+```
+# Argumentos de una funcion
+Son una serie de valores que bien pueden ser opcionales que se pasan a la funcion, de modo que, algunas variables dentro de la funcion tengan distintos valores en cada ejecucion de la funcion.
+La notacion de estos argumentos deben estar dentro de parentesis y separados por comas. Los valores son asignados al nombre del argumento por el usuario cada vez que se ejecuta la funcion. Los argumentos pueden ser datos, estructuras de datos, conexiones entre archivos, incluso otras funciones, los argumentos deben poseer nombres distintos.
+
+# Argumento por valor
+La definicion general de este procedimiento consiste en copiar el contenido de la variable que deseamos pasar en otra dentro del espacio local de la subrutina. Es decir, el subprograma llamado recibe un argumento que tiene el mismo valor que el argumento real, pero cualquier cambio en este argumento no afecta al argumento real u original.
+
+
+
+
