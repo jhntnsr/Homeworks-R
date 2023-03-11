@@ -1,0 +1,153 @@
+
+#Laboratorio 1
+
+# 1. Vectores y Matrices
+
+```{r}
+# 1.1 Vector para cada estudiante
+
+student_1 <-c(50.4,62.3,92.1,77.6,TRUE)
+student_2 <-c(41.7,87.9,75.3,72.4,FALSE)
+student_3 <-c(30.3,67.8,69.3,71.2,FALSE)
+student_4 <-c(65.4,85.1,92.3,96.8,TRUE)
+student_5 <-c(70.4,88.2,95.2,90.7,TRUE)
+
+student_1
+student_2
+student_3
+student_4
+student_5
+
+# Donde 1=True and 0=False
+```
+```{r}
+# 1.2 Crear un vector students_vector
+
+students_vector <- c(student_1,student_2,student_3,student_4,student_5)
+
+```
+```{r}
+# 1.3 Construir matriz con parametro students_vector
+
+students_matrix <-matrix(students_vector,byrow=TRUE,nrow=5)
+
+```
+# 2. Nombrando una matriz
+
+```{r}
+# 2.1 Crear nombres de estudiantes y cursos
+
+name_students <-c("Lily Brown","Davis Moore","Susan Tylor","Mike Jones","Tom Hill")
+
+name_courses_legal_age <-c("TIC","Accounting","Psychology","Ethics","Legal_age")
+
+```
+
+```{r}
+# 2.2 Nombrado de Filas y columnas
+
+colnames(students_matrix)<-name_courses_legal_age
+rownames(students_matrix)<-name_students
+
+students_matrix
+
+```
+# 3. rowSums, cbind
+
+```{r}
+# 3.1 Vector total_grade_student
+
+total_grade_student <-rowSums(students_matrix[,1:4])
+```
+```{r}
+# 3.2 Pegado de nueva columna en matriz
+
+result_students <-cbind(students_matrix,total_grade_student)
+```
+# 4 Seleccionando elementos de una matriz
+
+```{r}
+# 4.1 Almacene el resultado en una variable de nombre selected_elements e imprima el resultado
+
+selected_elements <-result_students[c(1,3,5),c(2,4)]
+```
+# Data Frames
+
+```{r}
+# 5.1 Construya un data frame de nombre students_grades_df utilizando la matriz result_students como parámetro.
+
+students_grades_df <- data.frame(result_students)
+```
+```{r}
+# 5.2 Utilice la función subset en students_grades_df para filtrar por la siguiente condición: Que la columna Accounting sea mayor a 80 y que Legal_age sea verdadero
+
+subset(students_grades_df,subset = c(Legal_age ==1 & Accounting >80))
+```
+# 6 Funciones, Condicionales y Bucles
+
+```{r}
+# 6.1 Construya una función de nombre students_projection que recorra la matriz result_students
+
+students_projection <-function (s,t){
+for(s in 1:nrow(result_students[,1:4])){
+  for(t in 1:ncol(result_students[,1:4])){
+    print(result_students[s,t])
+  }
+}
+}
+
+students_projection()
+```
+```{r}
+# 6.2 Al recorrer filas y columnas obtendrá el valor de la nota que se encuentra en cada celda de la matriz, con este valor aplique las siguientes condiciones para imprimir un mensaje:
+
+students_projection <- function(s, t){
+  for(s in 1:nrow(result_students[,1:4])){
+    for(t in 1:ncol(result_students[,1:4])){
+      if(result_students[s,t] <= 45){
+    print(paste("Student at risk",result_students[s,t]))
+  } else if (result_students[s,t] >= 45 & result_students[s,t] <= 61) {
+    print(paste("Student may be approved",result_students[s,t]))
+  }else {
+    print(paste("Student approved",result_students[s,t]))
+  }
+  }
+  }
+}
+students_projection()
+```
+# 7 Data Frames
+
+```{r}
+# 7.1 Funcion Index_eductation
+
+index_education <-function(grade){
+(1+(grade/100))/2
+}
+index_education (5)
+
+```
+ 
+```{r}
+# 7.2 Utilice students_grades_df seleccionando todas las filas y solamente las primeras= 4 columnas, luego asigne el resultado en all_students_grade.
+
+all_students_grade <-students_grades_df[,1:4]
+
+
+```
+```{r}
+# 7.3 Utilice lapply pasando de parámetros all_students_grade y la función index_education
+
+lapply(all_students_grade,index_education)
+```
+
+#8 Math utilities
+
+```{r}
+# 8.1 Utilice students_grades_df y obtenga el promedio de las 4 asignaturas luego asigne los resultados en un vector de nombre score_mean
+
+score_mean <- (colMeans(students_grades_df[,1:4]))
+  
+
+```
+
