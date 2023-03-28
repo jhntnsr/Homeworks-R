@@ -1,0 +1,106 @@
+***-- Como leer un Archivo CVS desde R --***
+
+Para leer un archivo CSV desde R, se pueden seguir los siguientes pasos:
+
+1. Es necesario tener el archivo CSV en el directorio de trabajo actual o especificar la ruta completa del archivo.
+2. Usar la función read.csv() para leer el archivo. Por ejemplo, si el archivo se llama "datos.csv", se puede leer de la siguiente manera:
+   
+   datos <- read.csv ("datos.sv")
+   
+   La función read.csv() también acepta otros argumentos, como el delimitador de campo (sep), la cadena de caracteres que indica los valores faltantes         (na.strings) y otros argumentos que pueden ser útiles dependiendo de la estructura del archivo CSV.
+   
+3. Si el archivo CSV contiene encabezados de columna, la función read.csv() por defecto los usará como nombres de columna. En caso contrario, se pueden        especificar los nombres de columna utilizando el argumento col.names.
+
+4. Si desea realizar alguna operación en los datos que ha leído, asegúrese de que estén en el formato adecuado. Por ejemplo, si desea realizar operaciones     matemáticas en alguna columna, asegúrese de que la columna esté en formato numérico, y no en formato de texto.
+
+
+***-- Funcion Select() de la paqueteria de dplyr. --***
+
+La función select() de la paquetería dplyr es una herramienta útil para seleccionar columnas específicas de un conjunto de datos en R. Esta función se utiliza para subconjuntar un conjunto de datos basado en las columnas seleccionadas y devuelve un nuevo marco de datos que contiene únicamente esas columnas.
+
+La sintaxis básica de la función select() es la siguiente: select(data, columna1, columna2, ...)
+
+Donde data es el conjunto de datos que se desea subconjuntar, y columna1, columna2, etc., son los nombres de las columnas que se desean seleccionar. También se pueden seleccionar columnas utilizando operadores de selección, como : y -.
+
+Por ejemplo, si se tiene un conjunto de datos llamado datos que contiene las columnas edad, sexo, peso y altura, y se desea seleccionar únicamente las columnas edad y peso, se puede hacer lo siguiente: datos_nuevos <-select(datos, edad, peso)
+
+O, utilizando el operador de selección ':': datos_nuevos <-select(datos, edad:peso)
+
+La función select() también permite utilizar funciones auxiliares para seleccionar columnas específicas basadas en ciertas condiciones, como starts_with(), ends_with(), contains(), matches(), entre otras. Estas funciones se utilizan para seleccionar columnas que contengan ciertas cadenas de caracteres, o que coincidan con ciertos patrones.
+
+Por ejemplo, si se desea seleccionar todas las columnas que contengan la cadena "ingreso", se puede hacer lo siguiente: 
+  datos_nuevos<- select (datos) constrains ("ingreso"))
+  
+La función select() también se puede combinar con otras funciones de dplyr, como filter(), mutate(), arrange(), para realizar operaciones más avanzadas en los datos seleccionados.
+
+En resumen, la función select() de dplyr es una herramienta poderosa y flexible para seleccionar columnas específicas de un conjunto de datos en R, lo que puede simplificar el análisis y manipulación de datos.
+
+```{r}
+library(dplyr)
+library(rlang)
+library(gtable)
+```
+
+
+```{r}
+dataset_results <- read.csv("C:/Users/jhone/Documents/Maestria/PROGRAMACIÓN Y SCRIPTING/primary_results.csv")
+
+```
+# 1.Filtrar todos los votos del estado de Florida #
+
+```{r}
+dataset_results %>%
+  filter(state=='Florida')
+
+```
+
+# 2. Utilice operadores lógicos (& and |), según corresponda: #
+
+```{r}
+# 2.1 Filtrar votos para los candidatos Hillary Clinton o Donald Trump
+
+dataset_results %>%
+  filter(candidate=='Hillary Clinton'|candidate=='Donald Trump')
+
+```
+
+```{r}
+# 2.2. Filtrar votos para el partido Demócrata y el condado Shelby #
+
+dataset_results %>%
+  filter(party=='Democrat', county=='Shelby')
+
+```
+
+```{r}
+# 2.3. Filtrar votos para el estado de Alabama y que la cantidad de votos sea mayor a 15000.#
+
+dataset_results %>%
+  filter(state=='Alabama'& votes>15000)
+
+```
+
+#3 Utilice la función select y arrange para el siguiente filtrado:#
+
+```{r}
+# 3.1. Filtrar votos para el estado de Texas y el condado Denton, seleccionando únicamente las columnas party, candidate, votes, luego ordene de forma
+# descendente por la columna votes.
+
+dataset_results %>%
+  filter(state=='Texas',county=='Denton') %>%
+  select (party,candidate,votes) %>%
+  arrange(desc(votes))
+
+```
+# 4. Utilice el verbo mutate y arrange para el siguiente filtrado: #
+
+```{r}
+# 4.1. Filtrar por el partido Republicano, que el candidato sea Ted Cruz en el estado de Alaska, luego agregue una columna que se llame vote_count que sea la división de votes por fraction_votes (votes/fraction_votes), finalmente ordene de forma descendente por vote_count.
+
+dataset_results %>%
+  filter(party=='Republican',candidate=='Ted Cruz',state=='Alaska')%>%
+  mutate(vote_count=votes/fraction_votes)%>%
+  arrange(desc(vote_count))
+
+```
+
